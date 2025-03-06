@@ -31,41 +31,39 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <div className="flex h-16 items-center px-4">
-        <nav
-      className={"flex items-center space-x-4 lg:space-x-6"}
-      >
-      <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium transition-colors hover:text-primary"
-        >
-        Overview
-      </Link>
-      <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-        Customers
-      </Link>
-      <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-        Products
-      </Link>
-      <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-        Settings
-      </Link>
-    </nav>
-        </div>
-        {children}
-      </main>
-    </SidebarProvider>
+          <AppSidebar />
+          <main className="w-2/3">
+            <div className="flex h-16 items-center px-4 w-full">
+              <nav className={"flex items-center space-x-4 lg:space-x-6"}>
+                <Link
+                  href="/examples/dashboard"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  Overview
+                </Link>
+                <Link
+                  href="/examples/dashboard"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Customers
+                </Link>
+                <Link
+                  href="/examples/dashboard"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/examples/dashboard"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Settings
+                </Link>
+              </nav>
+            </div>
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );

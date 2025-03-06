@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #fffeef;
   --foreground: #171717;
-  --sidebar-background: 0 0% 98%;
+  --sidebar-background: #fffeef;
   --sidebar-foreground: 240 5.3% 26.1%;
   --sidebar-primary: 240 5.9% 10%;
   --sidebar-primary-foreground: 0 0% 98%;
@@ -17,7 +17,7 @@
 
 .dark {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #fffeef;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
