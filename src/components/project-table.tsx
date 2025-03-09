@@ -17,77 +17,41 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
+type Project = {
+  id: string;
+  title: string;
+  description: string;
 };
 
-const defaultData: Person[] = [
+const defaultData: Project[] = [
   {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
+    id: "123",
+    title: "tanner",
+    description: "linsley",
   },
 ];
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<Project>();
 
-export default function ProjectTable() {
-  const columns: ColumnDef<Person, any>[] = [
-    columnHelper.accessor("firstName", {
+export default function ProjectTable({ data }: { data: Project[] }) {
+  console.log(data);
+
+  const columns: ColumnDef<Project, any>[] = [
+    columnHelper.accessor("id", {
       cell: (info) => info.getValue(),
-      footer: (info) => info.column.id,
     }),
-    columnHelper.accessor((row) => row.lastName, {
-      id: "lastName",
+    columnHelper.accessor((row) => row.description, {
+      id: "title",
       cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Last Name</span>,
-      footer: (info) => info.column.id,
+      header: () => <span>Description</span>,
     }),
-    columnHelper.accessor("age", {
-      header: () => "Age",
-      cell: (info) => info.renderValue(),
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("visits", {
-      header: () => <span>Visits</span>,
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("status", {
-      header: "Status",
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("progress", {
-      header: "Profile Progress",
-      footer: (info) => info.column.id,
+    columnHelper.accessor("description", {
+      cell: (info) => info.getValue(),
     }),
   ];
 
   const table = useReactTable({
-    data: defaultData,
+    data: data ? data : defaultData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
