@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import {
   createColumnHelper,
   flexRender,
@@ -40,10 +40,10 @@ export default function ProjectTable({ data }: { data: Project[] }) {
     columnHelper.accessor("id", {
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor((row) => row.description, {
+    columnHelper.accessor((row) => row.title, {
       id: "title",
       cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Description</span>,
+      header: () => <span>Title</span>,
     }),
     columnHelper.accessor("description", {
       cell: (info) => info.getValue(),
@@ -55,6 +55,7 @@ export default function ProjectTable({ data }: { data: Project[] }) {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  const router = useRouter();
 
   return (
     // Ajustar o titulo e criar uma tabela para mostrar os projetos disponiveis
@@ -85,6 +86,10 @@ export default function ProjectTable({ data }: { data: Project[] }) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() =>
+                    router.push(`/dashboard/${row.getValue("id")}`)
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

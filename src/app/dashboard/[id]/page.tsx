@@ -1,4 +1,5 @@
 import ProjectTable from "@/components/project-table";
+import { useQuery } from "@tanstack/react-query";
 
 type Project = {
   id: string;
@@ -6,27 +7,34 @@ type Project = {
   description: string;
 };
 
-export default async function Home({
+export default async function Project({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const response = await fetch("http://localhost:8000/projects", {
-    cache: "no-store",
+  const { id } = await params;
+
+  console.log(id);
+
+  const res = await fetch(`http://localhost:8000/tasks/${id}/tasks`, {
     headers: {
       Authorization: `Bearer TOKEN`,
     },
+    cache: "no-store",
   });
-  const initialProjects = await response.json();
-  const { data } = initialProjects;
 
-  const { id } = await params;
+  if (!res.ok) {
+    throw new Error("Erro ao buscar tasks");
+  }
+
+  const tasks = await res.json();
+
   return (
     <>
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         {id}
       </h1>
-      <ProjectTable data={data} />
+      <>heheh</>
     </>
   );
 }

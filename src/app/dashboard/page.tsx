@@ -1,40 +1,31 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import ProjectTable from "@/components/project-table";
 
-export default function Home() {
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export default async function Dashboard() {
+  const res = await fetch("http://localhost:8000/projects", {
+    headers: {
+      Authorization: `Bearer TOKEN`,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Erro ao buscar projetos");
+  }
+
+  const projects = await res.json();
+
   return (
-    // Ajustar o titulo e criar uma tabela para mostrar os projetos disponiveis
     <>
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Projects
+        projects
       </h1>
-      <div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">INV001</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>Credit Card</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
+      <ProjectTable data={projects?.data} />
     </>
   );
 }

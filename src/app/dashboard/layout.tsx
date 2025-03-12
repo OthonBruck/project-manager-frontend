@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
+import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,44 +28,46 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="w-2/3">
-            <div className="flex h-16 items-center px-4 w-full">
-              <nav className={"flex items-center space-x-4 lg:space-x-6"}>
-                <Link
-                  href="/examples/dashboard"
-                  className="text-sm font-medium transition-colors hover:text-primary"
-                >
-                  Overview
-                </Link>
-                <Link
-                  href="/examples/dashboard"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Customers
-                </Link>
-                <Link
-                  href="/examples/dashboard"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Products
-                </Link>
-                <Link
-                  href="/examples/dashboard"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Settings
-                </Link>
-              </nav>
-            </div>
-            {children}
-          </main>
-        </SidebarProvider>
-      </body>
+      <ReactQueryProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-2/3">
+              <div className="flex h-16 items-center px-4 w-full">
+                <nav className={"flex items-center space-x-4 lg:space-x-6"}>
+                  <Link
+                    href="/examples/dashboard"
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    Overview
+                  </Link>
+                  <Link
+                    href="/examples/dashboard"
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Customers
+                  </Link>
+                  <Link
+                    href="/examples/dashboard"
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Products
+                  </Link>
+                  <Link
+                    href="/examples/dashboard"
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Settings
+                  </Link>
+                </nav>
+              </div>
+              {children}
+            </main>
+          </SidebarProvider>
+        </body>
+      </ReactQueryProvider>
     </html>
   );
 }
