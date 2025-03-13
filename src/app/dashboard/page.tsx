@@ -1,4 +1,5 @@
 import ProjectTable from "@/components/project-table";
+import { cookies } from "next/headers";
 
 type Project = {
   id: string;
@@ -9,7 +10,7 @@ type Project = {
 export default async function Dashboard() {
   const res = await fetch("http://localhost:8000/projects", {
     headers: {
-      Authorization: `Bearer TOKEN`,
+      Authorization: `Bearer ${(await cookies()).get("token")?.value}`,
     },
     cache: "no-store",
   });

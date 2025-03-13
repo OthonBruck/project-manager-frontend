@@ -1,5 +1,6 @@
 import ProjectTable from "@/components/project-table";
 import { useQuery } from "@tanstack/react-query";
+import { cookies } from "next/headers";
 
 type Project = {
   id: string;
@@ -14,11 +15,9 @@ export default async function Project({
 }) {
   const { id } = await params;
 
-  console.log(id);
-
   const res = await fetch(`http://localhost:8000/tasks/${id}/tasks`, {
     headers: {
-      Authorization: `Bearer TOKEN`,
+      Authorization: `Bearer ${(await cookies()).get("token")?.value}`,
     },
     cache: "no-store",
   });

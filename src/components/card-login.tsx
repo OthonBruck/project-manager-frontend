@@ -32,9 +32,16 @@ export default function CardLogin() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    //TODO: realizar requisição para logar
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const res = await fetch(`http://localhost:8000/users/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error("Erro ao buscar tasks");
+    }
     router.push("/dashboard");
   };
 
